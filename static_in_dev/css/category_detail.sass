@@ -1,0 +1,127 @@
+$backColor: #e8e8e8
+$borderColor: #c9c9c9
+
+body
+	background-color: $backColor
+
+textarea
+	resize: none
+
+#main-header
+	& .hot-news-list
+		list-style-type: none
+		& li
+			font-size: 18px
+		& li:not(:first-child)
+			margin-top: 10px
+
+.article-item
+	margin-top: 20px
+	background-color: whitesmoke
+	&:last-child
+		margin-bottom: 50px
+	& img
+		display: block
+		margin: 20px auto 20px auto
+	& p.article-content
+		padding: 10px 0 0 5px
+		border-top: 1px solid $borderColor
+		display: block
+		display: -webkit-box
+		-webkit-line-clamp: 4
+		-webkit-box-orient: vertical
+		overflow: hidden
+		-o-text-overflow: ellipsis
+		text-overflow: ellipsis
+	& a
+		text-decoration: none
+	& h2
+		border-bottom: 1px solid $borderColor
+		padding-bottom: 10px
+		color: #4287f5
+		&:hover
+			cursor: pointer
+	& input[type="button"]
+		margin-bottom: 20px
+	& form
+		border-bottom: 1px solid $borderColor
+	& h3
+		border-bottom: 1px solid $borderColor
+		padding-bottom: 10px
+	& .comment-item
+		margin-top: 10px
+		margin-bottom: 10px
+		background-color: $backColor
+		border-radius: 5px
+		padding: 10px
+		& p
+			margin-top: 10px
+			font-style: italic
+	& .post-footer
+		border-top: 1px solid $borderColor
+		& i
+			font-size: 20px
+			margin: 10px 0px 10px 10px
+			cursor: pointer
+			& span
+				margin-left: 10px
+		& i:not(:first-child)
+			margin-left: 30px
+		& .add-to-fav
+			float: right
+			margin-top: 10px
+			font-size: 17px
+
+.hot-news-list
+	& .hot-new-item
+		width: 400px
+		height: 300px
+	& li
+		height: 30px
+		& a
+			display: inline-block
+			white-space: nowrap
+			overflow: hidden
+			-o-text-overflow: ellipsis
+			text-overflow: ellipsis
+
+.category-selector
+	margin-top: 40px
+
+.ellipsis-title
+	display: inline-block
+	white-space: nowrap
+	overflow: hidden
+	width: 100%
+	-o-text-overflow: ellipsis
+	text-overflow: ellipsis
+
+.article-search:not(:first-child)
+	border-left: 5px solid $backColor
+
+#reg-form,
+#login-form
+	margin-top: 50px
+	padding: 30px
+	-webkit-box-shadow: 0px 2px 23px 0px rgba(0,0,0,0.3)
+	-moz-box-shadow: 0px 2px 23px 0px rgba(0,0,0,0.3)
+	box-shadow: 0px 2px 23px 0px rgba(0,0,0,0.3)
+
+#profile-wrapper
+	& h1, h2
+		padding-bottom: 15px
+		border-bottom: 1px solid $borderColor
+	& .personal-info
+		font-size: 19px
+		& span
+			float: right
+	& .fav-articles
+		& li
+			background-color: inherit
+			font-size: 18px
+			border: none
+
+.search-block
+	& h1
+		padding-bottom: 15px
+		border-bottom: 1px solid $borderColor

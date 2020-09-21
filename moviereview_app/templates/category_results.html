@@ -1,0 +1,9 @@
+{% for article in articles %}
+<div class="col-md-4 article-item article-search">
+	<a href="{{ article.get_absolute_url }}" class="ellipsis-title">
+		<h2>{{ article.title }}</h2>
+	</a>
+	<img width="50%" src="{{ article.image.url }}">
+	<p class="article-content">{{ article.synopsis }}</p>
+</div>
+{% endfor %}

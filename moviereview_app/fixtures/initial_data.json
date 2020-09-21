@@ -1,0 +1,223 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "admin",
+            "first_name": "Super",
+            "last_name": "User",
+            "email": "admin@mail.com",
+            "password": "pbkdf2_sha256$216000$yC3jInfZa458$4rzMRQUj+9F82B9c2ZdGMnAvCroYtj8j/yRVZgytF1I=",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "moviereview_app.useraccount",
+        "pk": 1,
+        "fields": {
+            "first_name": "Super",
+            "last_name": "User",
+            "email": "admin@mail.com",
+            "user_id": "1"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "user",
+            "first_name": "Pepe",
+            "last_name": "Miuren",
+            "email": "user@mail.com",
+            "password": "pbkdf2_sha256$216000$c9kpMgHFclHI$ukoQOYQjYH62jMERB/ILOE71mOVyhuOxtD+FmfMkaTM=",
+            "is_superuser": false,
+            "is_staff": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "moviereview_app.useraccount",
+        "pk": 2,
+        "fields": {
+            "first_name": "Pepe",
+            "last_name": "Miuren",
+            "email": "user@mail.com",
+            "user_id": "2"
+        }
+    },
+    {
+        "model": "moviereview_app.category",
+        "pk": 1,
+        "fields": {
+            "name": "Accion",
+            "slug": "accion",
+            "description": "Caracterizadas por contener alta tensión, persecuciones y muchas peleas, además de una dirección que pone énfasis en el movimiento y ritmo frenético."
+        }
+    },
+    {
+        "model": "moviereview_app.category",
+        "pk": 2,
+        "fields": {
+            "name": "Aventura",
+            "slug": "aventura",
+            "description": "Caracterizadas por contar historias interesantes y excitantes en contextos normalmente exóticos, y con un contenido similar al de las películas de acción."
+        }
+    },
+    {
+        "model": "moviereview_app.category",
+        "pk": 3,
+        "fields": {
+            "name": "Comedia",
+            "slug": "comedia",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        }
+    },
+    {
+        "model": "moviereview_app.category",
+        "pk": 4,
+        "fields": {
+            "name": "Drama",
+            "slug": "drama",
+            "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        }
+    },
+    {
+        "model": "moviereview_app.category",
+        "pk": 5,
+        "fields": {
+            "name": "Fantasia",
+            "slug": "fantasia",
+            "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 1,
+        "fields": {
+            "category": 5,
+            "title": "El Hobbit",
+            "slug": "el-hobbit",
+            "image": "Fantasia/el-hobbit.jpg",
+            "url_embed": "http://www.youtube.com/embed/oSTb50mGJe0",
+            "synopsis": "Después de haber recuperado el reino del Dragón Smaug en la montaña, la Compañía ha desencadenado, sin querer, una potencia maligna. Un Smaug enfurecido vuela hacia la Ciudad del Lago para acabar con cualquier resto de vida. Obsesionado con las enormes riquezas en su poder, el rey enano Thorin se vuelve codicioso, mientras Bilbo intenta hacerle entrar en razón haciendo algo desesperado y peligroso. Pero hay aún mayores peligros por delante. Sin la ayuda del mago Gandalf, su gran enemigo Sauron ha enviado legiones de orcos hacia la Montaña Solitaria en un ataque épico. Cuando la oscuridad se cierna sobre ellos, las razas de los Enanos, Elfos y Hombres deberán decidir si unirse o ser destruidos. Bilbo se encontrará así en la batalla épica de los Cinco Ejércitos, donde el futuro de la Tierra Media está en juego.",
+            "votes": 0,
+            "time_added": "2020-5-12T09:56:11.536Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 2,
+        "fields": {
+            "category": 2,
+            "title": "Matrix",
+            "slug": "matrix",
+            "image": "Aventura/matrix.jpg",
+            "url_embed": "http://www.youtube.com/embed/OM0tSTEQCQA",
+            "synopsis": "Un programador pirata recibe un día una misteriosa visita... Nada más se debe contar de la sinopsis de Matrix. Es más, si todavía no la ha visto, no deje que nadie le cuente qué es Matrix. Porque gran parte del éxito mundial de esta fascinante y entretenidísima película se basa en su original guión, asombrosa idea -el solipsismo robótico- producto de la era tecnológica en la que vivimos. Si a ello le unimos su revolucionaria estética -con espectaculares y trepidantes escenas de acción nunca vistas en el género-, tendremos el porqué de la consagración de esta deslumbrante cinta fantástica como el mayor film de culto de final de siglo. Puede que en unos años quede obsoleta, pero para entonces ya nada nos hará olvidar el día que descubrimos qué es Matrix... y a aquella Trinity | Carrie-Anne Moss, auténtico hielo -que de frío quema-, la más hipnótica heroína de estos tiempos cibernéticos.",
+            "votes": 0,
+            "time_added": "2020-7-12T09:56:11.536Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 3,
+        "fields": {
+            "category": 3,
+            "title": "Home Alone",
+            "slug": "home-alone",
+            "image": "Comedia/home-alone.jpg",
+            "url_embed": "http://www.youtube.com/embed/owU3lMxd6jI",
+            "synopsis": "Kevin McAllister es un niño de ocho años, miembro de una familia numerosa, que accidentalmente se queda abandonado en su casa cuando toda la familia se marcha a pasar las vacaciones a Francia. Kevin aprende a valerse por sí mismo e incluso a protegerse de Harry y Marv, dos bribones que se proponen asaltar todas las casas cerradas de su vecindario. En cuanto su madre lo echa en falta, regresa apresuradamente a Chicago para recuperar a su hijo",
+            "votes": 1,
+            "time_added": "2020-5-4T09:56:11.536Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 4,
+        "fields": {
+            "category": 3,
+            "title": "Little Miss Sunshine",
+            "slug": "little-miss-sunshine",
+            "image": "Comedia/little-miss-sunshine.jpg",
+            "url_embed": "http://www.youtube.com/embed/IzVVFN25uCo",
+            "synopsis": "Los Hoover son una familia muy peculiar: el abuelo esnifa cocaína y suelta palabrotas, el padre fracasa estrepitosamente dando cursos para alcanzar el éxito, la madre no da abasto, el tío se está recuperando de un suicidio frustrado tras ser abandonado por su novio, el hijo adolescente lee a Nietzsche y guarda un mutismo absoluto. Y Olive, la hija pequeña, una niña gafotas y más bien gordita, quiere ser una reina de la belleza. Cuando, gracias a un golpe de suerte, la invitan a participar en el concurso de 'Pequeña Miss Sunshine', en California, la acompaña toda la familia. Hacinados en una destartalada furgoneta Volkswagen, se dirigen hacia el Oeste en un trágicómico periplo de tres días lleno de inesperadas sorpresas. El debut de Olive será el detonante de un cambio profundo en esta familia de inadaptados.",
+            "votes": 0,
+            "time_added": "2020-9-12T09:56:11.536Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 5,
+        "fields": {
+            "category": 3,
+            "title": "Juno",
+            "slug": "juno",
+            "image": "Comedia/juno.jpg",
+            "url_embed": "http://www.youtube.com/embed/pBswF2SYDtM",
+            "synopsis": "Juno Macguff (Ellen Page) tiene 16 años y es, según los adultos, más inteligente de lo que le conviene. Es ingeniosa, culta, observadora y, sobre todo, sarcástica. Ese sarcasmo no es más que una coraza para ocultar sus miedos y dudas. A raíz de la relación con un compañero de clase (Michael Cera) se queda embarazada. Y, como él se desentiende del problema, Juno toma una decisión que cuenta con la aprobación de su familia: tendrá el niño y lo dará en adopción. Después habrá que encontrar unos padres adoptivos adecuados. Mark (Jason Bateman) y Vanessa (Jennifer Garner) parecen los padres ideales. Pero resulta que Mark y Juno comparten demasiadas aficiones y parecen entenderse muy bien desde el principio.",
+            "votes": 1,
+            "time_added": "2020-3-22T10:03:32.885Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 6,
+        "fields": {
+            "category": 4,
+            "title": "A clockwork orange",
+            "slug": "a-clockwork-orange",
+            "image": "Drama/a-clockwork-orange.jpg",
+            "url_embed": "http://www.youtube.com/embed/vN-1Mup0UI0",
+            "synopsis": "Gran Bretaña, en un futuro indeterminado. Alex (Malcolm McDowell) es un joven muy agresivo que tiene dos pasiones: la violencia desaforada y Beethoven. Es el jefe de la banda de los drugos, que dan rienda suelta a sus instintos más salvajes apaleando, violando y aterrorizando a la población. Cuando esa escalada de terror llega hasta el asesinato, Alex es detenido y, en prisión, se someterá voluntariamente a una innovadora experiencia de reeducación que pretende anular drásticamente cualquier atisbo de conducta antisocial.",
+            "votes": 1,
+            "time_added": "2020-9-5T10:04:21.862Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 7,
+        "fields": {
+            "category": 1,
+            "title": "El caballero oscuro",
+            "slug": "el-caballero-oscuro",
+            "image": "Accion/el-caballero-oscuro.jpg",
+            "url_embed": "http://www.youtube.com/embed/zrXP6TYK8rY",
+            "synopsis": "Batman/Bruce Wayne (Christian Bale) regresa para continuar su guerra contra el crimen. Con la ayuda del teniente Jim Gordon (Gary Oldman) y del Fiscal del Distrito Harvey Dent (Aaron Eckhart), Batman se propone destruir el crimen organizado en la ciudad de Gotham. El triunvirato demuestra su eficacia, pero, de repente, aparece Joker (Heath Ledger), un nuevo criminal que desencadena el caos y tiene aterrados a los ciudadanos.",
+            "votes": 0,
+            "time_added": "2020-3-15T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 8,
+        "fields": {
+            "category": 1,
+            "title": "El origen",
+            "slug": "el-origen",
+            "image": "Accion/el-origen.jpg",
+            "url_embed": "http://www.youtube.com/embed/JvJBdJqJXCk",
+            "synopsis": "Dom Cobb (DiCaprio) es un experto en el arte de apropiarse, durante el sueño, de los secretos del subconsciente ajeno. La extraña habilidad de Cobb le ha convertido en un hombre muy cotizado en el mundo del espionaje, pero también lo ha condenado a ser un fugitivo y, por consiguiente, a renunciar a llevar una vida normal. Su única oportunidad para cambiar de vida será hacer exactamente lo contrario de lo que ha hecho siempre: la incepción, que consiste en implantar una idea en el subconsciente en lugar de sustraerla. Sin embargo, su plan se complica debido a la intervención de alguien que parece predecir cada uno de sus movimientos, alguien a quien sólo Cobb podrá descubrir.",
+            "votes": 0,
+            "time_added": "2020-4-15T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    }
+]

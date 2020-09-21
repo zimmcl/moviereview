@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 search-block">
+			<h1>Contenido encontrado: <span>{{ founded_articles.count }}</span></h1>
+			{% for article in founded_articles %}
+			<h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+			<p>{{ article.content|truncatewords:50 }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock content %}

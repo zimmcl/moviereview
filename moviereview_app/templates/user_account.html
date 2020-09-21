@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row" id="profile-wrapper">
+		<h1 align="center"> Perfil de {{ user.user.username }} (
+			{% if user.user.is_superuser %}
+			{{ "Administrador" }}
+			{% else %}
+			{{ "Usuario" }}
+			{% endif %} )
+		</h1>
+
+		<div class="col-md-4">
+			<h2>Información personal</h2>
+			<p class="personal-info">
+				Nombre: <span>{{ user.first_name }}</span><br>
+				Apellido: <span>{{ user.last_name }}</span><br>
+				Email: <span>{{ user.email }}</span><br>
+				Usuario: <span>{{ user.user.username }}</span><br>
+				<span><a href="{% url 'change_password_view' %}">Cambiar contraseña</a></span>
+			</p>
+		</div>
+
+		<div class="col-md-8">
+			<h2 align="right">Articulos favoritos</h2>
+			<ul class="list-group fav-contents">
+				{% for content in user.favourite_contents.all %}
+				<li class="list-group-item" align="right"><a
+						href="{% url 'content_detail_view' category_slug=content.category.slug slug=content.slug %}">{{ content.title }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row" id="profile-wrapper">
+		<h2>Funciones Administrativas</h2>
+		{% if user.user.is_superuser %}
+		<button type="button" class="btn btn-primary btn-lg">Administrar Categorias</button>
+		<button type="button" class="btn btn-primary btn-lg">Crear Contenido</button>
+		<button type="button" class="btn btn-primary btn-lg">Administrar Usuarios</button>
+		{% else %}
+		<button type="button" class="btn btn-primary btn-lg" disabled>Administrar Categorias</button>
+		<button type="button" class="btn btn-primary btn-lg" disabled>Crear Contenido</button>
+		<button type="button" class="btn btn-primary btn-lg" disabled>Administrar Usuarios</button>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock content %}

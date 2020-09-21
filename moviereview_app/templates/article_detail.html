@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<img height="200" width="200" src="{{ article.image.url }}" class="img-responsive">
+			<a href="{{ article.get_absolute_url }}">
+				<h2 align="center">{{ article.title }}</h2>
+			</a>
+		</div>
+		<div class="col-md-8 col-md-offset-0 article-item">
+			<a href="{{ article.get_absolute_url }}">
+				<h2>{{ article.title }}</h2>
+			</a>
+
+			<iframe width="100%" height="350" src={{ article.url_embed}} frameborder="0" allowfullscreen></iframe>
+			<p>{{ article.synopsis }}</p>
+			<div class="post-footer">
+				<span class="add-to-fav" article-id="{{ article.id }}"><a href="#">Agregar a favoritos</a></span>
+			</div>
+
+			<script>
+				$(".rating a").on('click', function (e) {
+					let value = $(this).data('value');
+					$.ajax({
+						url: "some_url",
+						type: 'POST',
+						data: {
+							'rating': value
+						},
+						success: function (d) {
+							// some processing
+						}
+					})
+				});
+			</script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<div class="rating rating2">
+				<a href="#5" title="Give 5 stars" data-value="5"><i class="fa fa-star-o fa-2x"></i></a>
+				<a href="#4" title="Give 4 stars" data-value="4"><i class="fa fa-star-o fa-2x"></i></a>
+				<a href="#3" title="Give 3 stars" data-value="3"><i class="fa fa-star-o fa-2x"></i></a>
+				<a href="#2" title="Give 2 stars" data-value="2"><i class="fa fa-star-o fa-2x"></i></a>
+				<a href="#1" title="Give 1 star" data-value="1"><i class="fa fa-star-o fa-2x"></i></a>
+			</div>
+
+
+			<h3>Comentarios (<span id="comments-count">{{ article_comments.count }}</span>)</h3>
+			<form method="POST" action="">
+				{% csrf_token %}
+				{{ form|crispy }}
+				<input type="button" id="add-new-post" value="Agregar comentario" article-id="{{ article.id }}">
+				<button style="display: none;" type="button" id="show-message" data-toggle="modal"
+					data-target="#myModal">
+				</button>
+			</form>
+			<div class="comments">
+				{% for comment in article_comments %}
+				<div class="comment-item">
+					<span>{{ comment.author }}</span>
+					<p>{{ comment.comment }}</p>
+					<span>{{ comment.timestamp }}</span>
+				</div>
+				{% endfor %}
+			</div>
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+									aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Comentario agregado correctamente</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var create_comment_url = "{% url 'create_comment_view' %}";
+	var add_article_to_favourites_url = "{% url 'add_article_to_favourites_view' %}";
+</script>
+
+{% endblock content %}
