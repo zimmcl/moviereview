@@ -7,7 +7,7 @@
 			<h1>Contenido encontrado: <span>{{ founded_articles.count }}</span></h1>
 			{% for article in founded_articles %}
 			<h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
-			<p>{{ article.content|truncatewords:50 }}</p>
+			<p>{{ article.synopsis|truncatewords:50 }}</p>
 			{% endfor %}
 		</div>
 	</div>

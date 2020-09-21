@@ -198,7 +198,7 @@ class SearchView(View):
         query = request.GET.get('q')
         founded_articles = Article.objects.filter(
             Q(title__icontains=query) |
-            Q(content__icontains=query))
+            Q(synopsis__icontains=query))
         context = {
             'categories': Category.objects.all(),
             'founded_articles': founded_articles
