@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load embed_video_tags %}
 
 {% block content %}
 
@@ -16,8 +17,12 @@
 			<a href="{{ article.get_absolute_url }}">
 				<h2>{{ article.title }}</h2>
 			</a>
-
-			<iframe width="100%" height="350" src={{ article.url_embed}} frameborder="0" allowfullscreen></iframe>
+			{% video article.url_embed as my_video %}
+			<!--
+			<iframe width="100%" height="350" src={{ my_video.url }} frameborder="0" allowfullscreen></iframe>
+			-->
+			{% video my_video '100% x 400' %}
+			{% endvideo %}
 			<p>{{ article.synopsis }}</p>
 			<div class="post-footer">
 				<span class="add-to-fav" article-id="{{ article.id }}"><a href="#">Agregar a favoritos</a></span>
