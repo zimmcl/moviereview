@@ -123,3 +123,9 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Text backup files
+*.bak
+
+#Database
+*.sqlite3
