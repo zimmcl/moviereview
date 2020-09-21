@@ -13,7 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Embedded video content available.
 - Public access to the site using [Heroku platform](https://www.heroku.com/).
 
+### Fixed
+- Search engine.
 ### Changed
 
-### Fixed
+
 
