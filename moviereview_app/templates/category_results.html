@@ -1,9 +1,24 @@
-{% for article in articles %}
-<div class="col-md-4 article-item article-search">
-	<a href="{{ article.get_absolute_url }}" class="ellipsis-title">
-		<h2>{{ article.title }}</h2>
-	</a>
-	<img width="50%" src="{{ article.image.url }}">
-	<p class="article-content">{{ article.synopsis }}</p>
+<div>
+	{% if request.user.is_authenticated and request.user.is_superuser %}
+	<div class="col-md-4 article-item article-search">
+		<a href="{% url 'article_create_view' %}" class="ellipsis-title">
+			<h2 align="center">Nuevo Contenido</h2>
+		</a>
+		<a href="{% url 'article_create_view' %}">
+			<img width="73%" src="media/Other/Plus.png">
+		</a>
+		<p class="article-content"></p>
+	</div>
+	{% endif %}
+	{% for article in articles %}
+	<div class="col-md-4 article-item article-search">
+		<a href="{{ article.get_absolute_url }}" class="ellipsis-title">
+			<h2>{{ article.title }}</h2>
+		</a>
+		<a href="{{ article.get_absolute_url }}">
+			<img width="50%" src="{{ article.image.url }}">
+		</a>
+		<p class="article-content">{{ article.synopsis }}</p>
+	</div>
+	{% endfor %}
 </div>
-{% endfor %}

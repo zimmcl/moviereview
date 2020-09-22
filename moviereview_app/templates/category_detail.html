@@ -7,11 +7,22 @@
 		<h1 align="center">Contenido de la categoria {{ category.name }}</h1>
 		{% for article in articles_of_category %}
 		<div class="col-md-6 col-md-offset-3 article-item">
+
 			<a href="{{ article.get_absolute_url }}">
-				<h2>{{ article.title }}</h2>
+
+				<h2>
+					{% if request.user.is_superuser and request.user.is_authenticated %}
+					<a href="#">
+						<button type="button" class="btn btn-primary btn-sm">Editar</button>
+					</a>
+					{% endif %}
+					{{ article.title }} <i class="fa fa-star fa-1x" style="color:#fed805"></i>3.5 </h2>
 			</a>
-			<img height="250" width="400" src="{{ article.image.url }}" class="img-responsive">
+			<a href="{{ article.get_absolute_url }}">
+				<img height=" 250" width="400" src="{{ article.image.url }}" class="img-responsive">
+			</a>
 			<p class="article-content">{{ article.content }}</p>
+			<p class="article-content">{{ article.synopsis }}</p>
 			<div class="post-footer">
 				<!--
 				<i class="fa fa-thumbs-up like" id="like-{{ article.id }}" data-id="{{ article.id }}"

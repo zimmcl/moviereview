@@ -25,26 +25,11 @@
 			{% endvideo %}
 			<p>{{ article.synopsis }}</p>
 			<div class="post-footer">
-				<span class="add-to-fav" article-id="{{ article.id }}"><a href="#">Agregar a favoritos</a></span>
+				<span class="add-to-fav" article-id="{{ article.id }}">
+					<a href="#" class="btn btn-info">Agregar a favoritos</a>
+				</span>
 			</div>
-
-			<script>
-				$(".rating a").on('click', function (e) {
-					let value = $(this).data('value');
-					$.ajax({
-						url: "some_url",
-						type: 'POST',
-						data: {
-							'rating': value
-						},
-						success: function (d) {
-							// some processing
-						}
-					})
-				});
-			</script>
-
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<br>
 			<div class="rating rating2">
 				<a href="#5" title="Give 5 stars" data-value="5"><i class="fa fa-star-o fa-2x"></i></a>
 				<a href="#4" title="Give 4 stars" data-value="4"><i class="fa fa-star-o fa-2x"></i></a>
@@ -53,12 +38,12 @@
 				<a href="#1" title="Give 1 star" data-value="1"><i class="fa fa-star-o fa-2x"></i></a>
 			</div>
 
-
 			<h3>Comentarios (<span id="comments-count">{{ article_comments.count }}</span>)</h3>
 			<form method="POST" action="">
 				{% csrf_token %}
 				{{ form|crispy }}
-				<input type="button" id="add-new-post" value="Agregar comentario" article-id="{{ article.id }}">
+				<input type="button" class="btn btn-primary" id="add-new-post" value="Agregar comentario"
+					article-id="{{ article.id }}">
 				<button style="display: none;" type="button" id="show-message" data-toggle="modal"
 					data-target="#myModal">
 				</button>

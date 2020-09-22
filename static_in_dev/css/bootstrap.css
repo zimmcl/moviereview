@@ -4145,11 +4145,11 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 
 .nav-tabs>li {
   float: left;
-  margin-bottom: -1px;
+  margin-bottom: -5px;
 }
 
 .nav-tabs>li>a {
-  margin-right: 2px;
+  margin-right: 5px;
   line-height: 1.42857143;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
@@ -4160,11 +4160,12 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
-  color: #555;
+  color: rgb(71, 71, 71);
   cursor: default;
   background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
+  font-size: large;
 }
 
 .nav-tabs.nav-justified {

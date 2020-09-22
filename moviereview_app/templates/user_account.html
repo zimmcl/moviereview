@@ -12,22 +12,35 @@
 		</h1>
 
 		<div class="col-md-4">
-			<h2>Información personal</h2>
+
+			<h2>Información personal <a href="{% url 'user_edit_profile' user_id=user.pk %}">
+					<button type="button" class="btn btn-primary">Editar</button>
+				</a>
+			</h2>
+
 			<p class="personal-info">
+				ID: <span>{{ user.pk }}</span><br>
 				Nombre: <span>{{ user.first_name }}</span><br>
 				Apellido: <span>{{ user.last_name }}</span><br>
 				Email: <span>{{ user.email }}</span><br>
 				Usuario: <span>{{ user.user.username }}</span><br>
+				Rol: <span>{{ user.user.is_superuser }}</span><br>
+				Miembro: <span>{{ user.user.is_staff }}</span><br>
 				<span><a href="{% url 'change_password_view' %}">Cambiar contraseña</a></span>
 			</p>
 		</div>
 
 		<div class="col-md-8">
 			<h2 align="right">Articulos favoritos</h2>
-			<ul class="list-group fav-contents">
-				{% for content in user.favourite_contents.all %}
-				<li class="list-group-item" align="right"><a
-						href="{% url 'content_detail_view' category_slug=content.category.slug slug=content.slug %}">{{ content.title }}</a>
+			<ul class="list-group fav-articles">
+				{% for article in user.favourite_articles.all %}
+				<li class="list-group-item" align="right">
+					<a href="{% url 'article_detail_view' category_slug=article.category.slug slug=article.slug %}">
+						{{ article.title }}
+					</a>
+					<a href=" {% url 'favorite_delete_view' id=article.id %}" onclick="return clicked();">
+						<button type="button" class="btn btn-danger btn-sm">X</button>
+					</a>
 				</li>
 				{% endfor %}
 			</ul>
@@ -35,6 +48,17 @@
 	</div>
 </div>
 
+
+{% include "list_user.html" %}
+
+{% include "list_category.html" %}
+
+{% endblock content %}
+
+
+
+
+<!--
 <div class="container">
 	<div class="row" id="profile-wrapper">
 		<h2>Funciones Administrativas</h2>
@@ -49,5 +73,4 @@
 		{% endif %}
 	</div>
 </div>
-
-{% endblock content %}
+-->

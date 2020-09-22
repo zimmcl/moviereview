@@ -18,137 +18,183 @@
     <link href="{% static 'css/4-col-portfolio.css' %}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/utils.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
-<body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'categories_view' %}">Movie Review</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{% url 'categories_view' %}">Inicio</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">Categorias<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            {% for category in categories %}
-                            <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <form class="navbar-form navbar-left" method="GET" action="{% url 'search_view' %}">
-                        <div class="form-group">
-                            <input style="width: 300px;" type="text" class="form-control" name="q" placeholder="Buscar">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                    </form>
+
+<body>
+    <div class="pageContentWrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'categories_view' %}">Movie Review</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="{% url 'categories_view' %}"><span class="glyphicon glyphicon-home"></span>
+                                Inicio</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false"><span
+                                    class="glyphicon glyphicon-facetime-video"></span> Categorias<span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                {% for category in categories %}
+                                <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <form class="navbar-form navbar-left" method="GET" action="{% url 'search_view' %}">
+                            <div class="form-group">
+                                <input style="width: 200px;" type="text" class="form-control" name="q"
+                                    placeholder="Buscar">
+                            </div>
+                            <button type="submit" class="btn btn-default">Buscar</button>
+                        </form>
+                    </ul>
+
                     {% if not request.user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'registration_view' %}">Crear Perfil</a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="{% url 'login_view' %}"><span class="glyphicon glyphicon-log-in"></span> Inicio de
+                                sesión</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="{% url 'registration_view' %}"><span class="glyphicon glyphicon-user"></span> Crear
+                                Perfil</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'account_view' request.user %}"><span
+                                    class="glyphicon glyphicon-edit"></span> Perfil ({{user.username}})</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'logout_view' %}"><span class="glyphicon glyphicon-log-out"></span> Cerrar
+                                sesión</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+
+        <div class="container" id="main-header">
+
+            <!--
+            <div class="row" align="center">
+                <div class="col-md-4">
+                    {% for article in hot_articles %}
+                    {% if forloop.first %}
+                    <img id="hot-image" width="50%" height="250" src="{{ article.image.url }}">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-4">
+                    <ul class="hot-news-list">
+                        {% for article in hot_articles %}
+                        <li>
+                            <a class="hot-new-item" image_path="{{ article.image.url }}"
+                                href="{% url 'article_detail_view' category_slug=article.category.slug slug=article.slug %}">{{ article.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        -->
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for category in categories %}
+                    {% if forloop.first %}
+                    <li role="presentation" class="active"><a href="#{{ category.name }}" class="category-selector"
+                            aria-controls="home" role="tab" data-toggle="tab">{{ category.name }}</a>
                     </li>
+                    {% else %}
+                    <li role="presentation"><a href="#{{ category.name }}" class="category-selector"
+                            aria-controls="profile" role="tab" data-toggle="tab">{{ category.name }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
                     <li>
-                        <a href="{% url 'login_view' %}">Inicio de sesión</a>
+                        <a href=" {% url 'category_create_view' %} " class="category-selector">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
-                {% if request.user.is_authenticated %}
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'account_view' request.user %}">Perfil</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'logout_view' %}">Cerrar sesión</a></li>
-                </ul>
-                {% endif %}
-                <p>
-                    <a href="https://github.com/zimmcl/moviereview/blob/master/README.md"><i
-                            class="fa fa-github fa-2x"></i></a>
-                </p>
-            </div>
-        </div>
-    </nav>
 
-    {% block content %}
-
-    <div class="container" id="main-header">
-        <!--
-        <div class="row">
-            <div class="col-md-4">
-                {% for article in hot_articles %}
-                {% if forloop.first %}
-                <img id="hot-image" width="70%" height="300" src="{{ article.image.url }}">
-                {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="col-md-6">
-                <ul class="hot-news-list">
-                    {% for article in hot_articles %}
-                    <li>
-                        <a class="hot-new-item" image_path="{{ article.image.url }}"
-                            href="{% url 'article_detail_view' category_slug=article.category.slug slug=article.slug %}">{{ article.title }}</a>
-                    </li>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    {% for category in categories %}
+                    {% if forloop.first %}
+                    <div role="tabpanel" class="tab-pane active" id="{{ category.name }}">
+                        {% include 'category_results.html' with articles=action_articles %}</div>
+                    {% else %}
+                    <div role="tabpanel" class="tab-pane" id="{{ category.name }}"></div>
+                    {% endif %}
                     {% endfor %}
-                </ul>
-            </div>
-        </div>
--->
-        <div>
 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                {% for category in categories %}
-                {% if forloop.first %}
-                <li role="presentation" class="active"><a href="#{{ category.name }}" class="category-selector"
-                        aria-controls="home" role="tab" data-toggle="tab">{{ category.name }}</a></li>
-                {% else %}
-                <li role="presentation"><a href="#{{ category.name }}" class="category-selector" aria-controls="profile"
-                        role="tab" data-toggle="tab">{{ category.name }}</a></li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+                </div>
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                {% for category in categories %}
-                {% if forloop.first %}
-                <div role="tabpanel" class="tab-pane active" id="{{ category.name }}">
-                    {% include 'category_results.html' with articles=action_articles %}</div>
-                {% else %}
-                <div role="tabpanel" class="tab-pane" id="{{ category.name }}"></div>
-                {% endif %}
-                {% endfor %}
             </div>
 
+            {% endblock content %}
         </div>
 
-        {% endblock content %}
+        <script type="text/javascript">
+            var display_articles_by_category_url = "{% url 'display_articles_by_category_view' %}";
+        </script>
+
     </div>
 
-    <script type="text/javascript">
-        var display_articles_by_category_url = "{% url 'display_articles_by_category_view' %}";
-    </script>
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer">
+            <br>
+            <!-- Footer Elements -->
+            <div class="container" align="center">
+                <!-- Grid row-->
+                <div class="row">
+                    <a href="#" class="fa fa-facebook fa-2x is-disabled"></a>
+                    <a href="#" class="fa fa-twitter fa-2x is-disabled"></a>
+                    <a href="#" class="fa fa-google fa-2x is-disabled"></a>
+                    <a href="#" class="fa fa-linkedin fa-2x is-disabled"></a>
+                    <a href="#" class="fa fa-instagram fa-2x is-disabled"></a>
+                    <a href="https://github.com/zimmcl/moviereview/blob/master/README.md" target="_black"
+                        class="fa fa-github fa-2x"></a>
+                </div>
+            </div>
+            <!-- Footer Elements -->
+        </div>
+    </footer>
+    <!-- Footer -->
 
 </body>
-
-<!-- Footer -->
-
-<!-- Footer -->
 
 </html>
