@@ -1,24 +1,22 @@
-<div>
-	{% if request.user.is_authenticated and request.user.is_superuser %}
-	<div class="col-md-4 article-item article-search">
-		<a href="{% url 'article_create_view' %}" class="ellipsis-title">
-			<h2 align="center">Nuevo Contenido</h2>
-		</a>
-		<a href="{% url 'article_create_view' %}">
-			<img width="73%" src="media/Other/Plus.png">
-		</a>
-		<p class="article-content"></p>
-	</div>
-	{% endif %}
-	{% for article in articles %}
-	<div class="col-md-4 article-item article-search">
-		<a href="{{ article.get_absolute_url }}" class="ellipsis-title">
-			<h2>{{ article.title }}</h2>
-		</a>
-		<a href="{{ article.get_absolute_url }}">
-			<img width="50%" src="{{ article.image.url }}">
-		</a>
-		<p class="article-content">{{ article.synopsis }}</p>
-	</div>
-	{% endfor %}
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<div class="col-md-2 article-item article-search">
+	<a href="{% url 'article_create_view' %}" class="ellipsis-title">
+		<h3 align="center">Nuevo</h3>
+	</a>
+	<a href="{% url 'article_create_view' %}">
+		<img width="55%" src="media/Other/Plus.png">
+	</a>
+	<p class="article-content"></p>
 </div>
+{% endif %}
+{% for article in articles %}
+<div class="col-md-3 article-item article-search">
+	<a href="{{ article.get_absolute_url }}" class="ellipsis-title">
+		<h3 align="center">{{ article.title }}</h3>
+	</a>
+	<a href="{{ article.get_absolute_url }}">
+		<img width="55%" src="{{ article.image.url }}">
+	</a>
+	<p class="article-content">{{ article.synopsis }}</p>
+</div>
+{% endfor %}

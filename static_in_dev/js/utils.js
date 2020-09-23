@@ -63,42 +63,6 @@ $(document).ready(function () {
 		})
 	});
 
-	$('.like').on('click', function (e) {
-		e.preventDefault();
-		query = 'like';
-		article_id = $(this).attr('data-id');
-		data_to_send = {
-			query: query,
-			article_id: article_id
-		}
-		$.ajax({
-			type: "GET",
-			url: user_reaction_url,
-			data: data_to_send,
-			success: function (data) {
-				$('#likes-count-' + article_id).html(data.total_likes);
-			}
-		});
-	});
-
-	$('.dislike').on('click', function (e) {
-		e.preventDefault();
-		query = 'dislike';
-		article_id = $(this).attr('data-id');
-		data_to_send = {
-			query: query,
-			article_id: article_id
-		}
-		$.ajax({
-			type: "GET",
-			url: user_reaction_url,
-			data: data_to_send,
-			success: function (data) {
-				$('#dislikes-count-' + article_id).html(data.total_dislikes);
-			}
-		});
-	});
-
 	$('.add-to-fav').on('click', function (e) {
 		e.preventDefault();
 		article_id = $(this).attr('article-id');
@@ -114,23 +78,113 @@ $(document).ready(function () {
 			}
 		});
 	});
-
-});
-
-
-
-
-
-$(".rating a").on('click', function (e) {
-	let value = $(this).data('value');
-	$.ajax({
-		url: "some_url",
-		type: 'POST',
-		data: {
-			'rating': value
-		},
-		success: function (d) {
-			// some processing
+	/*-------------------------------------------------------*/
+	$('.one-star').on('click', function (e) {
+		e.preventDefault();
+		query = 'one-star';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
 		}
-	})
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function (data) {
+				$('#star-count-' + article_id).html(data.total_stars);
+			}
+		})
+	});
+
+	$('.two-star').on('click', function (e) {
+		e.preventDefault();
+		query = 'two-star';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function (data) {
+				$('#star-count-' + article_id).html(data.total_stars);
+			}
+		})
+	});
+
+	$('.three-star').on('click', function (e) {
+		e.preventDefault();
+		query = 'three-star';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function (data) {
+				$('#star-count-' + article_id).html(data.total_stars);
+			}
+		})
+	});
+
+	$('.four-star').on('click', function (e) {
+		e.preventDefault();
+		query = 'four-star';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function (data) {
+				$('#star-count-' + article_id).html(data.total_stars);
+			}
+		})
+	});
+
+	$('.five-star').on('click', function (e) {
+		e.preventDefault();
+		query = 'five-star';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function (data) {
+				$('#star-count-' + article_id).html(data.total_stars);
+			}
+		})
+	});
+	/*-------------------------------------------------------------*/
+	/*
+		$(".rating a").on('click', function (e) {
+			let value = $(this).data('value');
+			article_id = $(this).attr('data-id');
+			data_to_send = {
+				score: value,
+				article_id: article_id
+			}
+			$.ajax({
+				type: "GET",
+				url: user_reaction_url,
+				data: data_to_send,
+				success: function (data) {
+					$('#votes-count-' + article_id).html(data.total_votes);
+				}
+			})
+		});
+	*/
 });

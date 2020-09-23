@@ -5,9 +5,24 @@
 
 <div class="container">
     <div class="row">
-        <form action="#" id="login-form" method="POST" class="col-md-6 col-md-offset-3">
+        <form id="login-form" method="POST" class="col-md-6 col-md-offset-3">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-8">
+                    <h3>Actualización de perfil</h3>
+                </div>
+            </div>
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ form.first_name|as_crispy_field }}
+            {{ form.last_name|as_crispy_field }}
+            {{ form.email|as_crispy_field }}
+
+            {% if request.user.is_superuser and request.user.is_authenticated  %}
+            {{ form.is_staff|as_crispy_field }}
+            {{ form.is_active|as_crispy_field }}
+            {{ form.is_superuser|as_crispy_field }}
+            {% endif %}
+
             <br>
             <input type="submit" class="btn btn-warning" value="Actualizar" />
         </form>

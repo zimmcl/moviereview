@@ -103,28 +103,6 @@
 
         <div class="container" id="main-header">
 
-            <!--
-            <div class="row" align="center">
-                <div class="col-md-4">
-                    {% for article in hot_articles %}
-                    {% if forloop.first %}
-                    <img id="hot-image" width="50%" height="250" src="{{ article.image.url }}">
-                    {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class="col-md-4">
-                    <ul class="hot-news-list">
-                        {% for article in hot_articles %}
-                        <li>
-                            <a class="hot-new-item" image_path="{{ article.image.url }}"
-                                href="{% url 'article_detail_view' category_slug=article.category.slug slug=article.slug %}">{{ article.title }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        -->
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">

@@ -1,13 +1,17 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template import loader, Context
 from django.views.generic.list import ListView, View
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView
+from django.views.generic import UpdateView, CreateView
 from moviereview_app.models import Category, Article, Comments, UserAccount
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from moviereview_app.forms import (CommentCreationForm, RegistrationForm, LoginForm,
-                                   EditUserProfileForm, CategoryCreationForm, ArticleCreationForm)
+                                   UserUpdateForm, CategoryCreationForm, ArticleCreationForm,
+                                   CategoryUpdateForm, ArticleUpdateForm)
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -30,6 +34,11 @@ class CategoryListView(ListView):
         return context
 
 
+"""
+----------------------------------------------------------------------------
+"""
+
+
 class CategoryDetailView(DetailView):
     model = Category
     template_name = 'category_detail.html'
@@ -42,6 +51,11 @@ class CategoryDetailView(DetailView):
         context['articles_of_category'] = Article.objects.filter(
             category__name=self.get_object())
         return context
+
+
+"""
+----------------------------------------------------------------------------
+"""
 
 
 class ArticleDetailView(DetailView):
@@ -57,6 +71,11 @@ class ArticleDetailView(DetailView):
         ).comments.all().order_by('-timestamp')
         context['form'] = CommentCreationForm()
         return context
+
+
+"""
+----------------------------------------------------------------------------
+"""
 
 
 class CreateCommentView(View):
@@ -75,6 +94,11 @@ class CreateCommentView(View):
         return HttpResponse(new_post_template)
 
 
+"""
+----------------------------------------------------------------------------
+"""
+
+
 class DisplayArticlesByCategory(View):
     template_name = 'index.html'
 
@@ -86,28 +110,46 @@ class DisplayArticlesByCategory(View):
         return HttpResponse(sub_template)
 
 
+"""
+----------------------------------------------------------------------------
+"""
+
+
 class UserReactionView(View):
-    template_name = 'category_detail.html'
+    template_name = 'article_detail.html'
 
     def get(self, request, *args, **kwargs):
         article_id = request.GET.get('article_id')
         article = Article.objects.get(id=article_id)
-        query = request.GET.get('query')
-        if query == 'like':
-            if request.user not in article.users_reactions.all():
-                article.likes += 1
-                article.users_reactions.add(request.user)
-                article.save()
-        elif query == 'dislike':
-            if request.user not in article.users_reactions.all():
-                article.dislikes += 1
-                article.users_reactions.add(request.user)
-                article.save()
+        stars = request.GET.get('query')
+        if request.user not in article.users_reactions.all():
+            article.ranking = (article.ranking * article.votes)
+            if stars == 'one-star':
+                article.ranking += 1
+            elif stars == 'two-star':
+                article.ranking += 2
+            elif stars == 'three-star':
+                article.ranking += 3
+            elif stars == 'four-star':
+                article.ranking += 4
+            elif stars == 'five-star':
+                article.ranking += 5
+
+            article.votes += 1
+
+            article.users_reactions.add(request.user)
+            article.ranking = (article.ranking / article.votes)
+            article.save()
+
         data = {
-            'total_likes': article.likes,
-            'total_dislikes': article.dislikes
+            'total_stars': article.votes
         }
         return JsonResponse(data)
+
+
+"""
+----------------------------------------------------------------------------
+"""
 
 
 class RegisterUserView(View):
@@ -135,11 +177,16 @@ class RegisterUserView(View):
                                        first_name=new_user.first_name,
                                        last_name=new_user.last_name,
                                        email=new_user.email)
-            return HttpResponseRedirect(reverse('categories_view'))
+            return HttpResponseRedirect(reverse('login_view'))
         context = {
             'form': form
         }
         return render(request, self.template_name, context)
+
+
+"""
+----------------------------------------------------------------------------
+"""
 
 
 class LoginUserView(View):
@@ -168,6 +215,11 @@ class LoginUserView(View):
         return render(request, self.template_name, context)
 
 
+"""
+----------------------------------------------------------------------------
+"""
+
+
 class UserAccountView(View):
     template_name = 'user_account.html'
 
@@ -183,6 +235,11 @@ class UserAccountView(View):
         return render(request, self.template_name, context)
 
 
+"""
+----------------------------------------------------------------------------
+"""
+
+
 class AddArticlesToFavoutitesView(View):
     template_name = 'article_detail.html'
 
@@ -196,17 +253,25 @@ class AddArticlesToFavoutitesView(View):
         return JsonResponse({})
 
 
-class RemoveArticleFromFavoriteView(View):
-    model = UserAccount
-    template_name = 'article_detail.html'
+"""
+This view needs to be fixed 
+"""
 
-    def get(self, request, *args, **kwargs):
-        fav_article = self.model.objects.get(id=id)
-        fav_article.remove(id)
 
-        # article_id = request.GET.get('fav_id')
-        # article = Article.objects.get(id=article_id)
-        return HttpResponseRedirect(reverse('account_view'))
+def ArticleFavoriteDeleteView(request, user_id, article_id):
+    user = get_object_or_404(UserAccount, pk=user_id)
+    article = get_object_or_404(Article, pk=article_id)
+    context = {'user': user}
+    if article in user.favourite_articles.all():
+        user.favourite_articles.remove(article)
+        user.favourite_articles.all()
+    sub_template = render(request, 'user_account.html', context)
+    return HttpResponse(sub_template)
+
+
+"""
+----------------------------------------------------------------------------
+"""
 
 
 class SearchView(View):
@@ -224,81 +289,113 @@ class SearchView(View):
         return render(request, self.template_name, context)
 
 
-class CategoryCreateView(View):
+"""
+----------------------------------------------------------------------------
+"""
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryCreationForm
     template_name = 'add_category.html'
 
-    def get(self, request, *args, **kwargs):
-        form = CategoryCreationForm()
-        context = {
-            'form': form
-        }
-        return render(request, self.template_name, context)
-
-    def post(self, request, *args, **kwargs):
-        form = CategoryCreationForm(request.POST or None)
-        if form.is_valid():
-            new_category = form.save(commit=False)
-            slug = form.cleaned_data.get('slug')
-            description = form.cleaned_data.get('description')
-            new_category.save()
-            Category.objects.create(name=Category.objects.get(name=new_category.name),
-                                    slug=new_category.slug,
-                                    description=new_category.description)
-            return HttpResponseRedirect(reverse('categories_view'))
-        context = {
-            'form': None
-        }
-        return render(request, self.template_name, context)
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
 
 
-class ArticleCreateView(View):
-    template_name = 'add_article.html'
+"""
+This view needs to be fixed
+"""
+
+
+class ArticleCreateView(CreateView):
     model = Article
+    form_class = ArticleCreationForm
+    template_name = 'add_article.html'
 
-    def get(self, request, *args, **kwargs):
-        form = ArticleCreationForm()
-        context = {
-            'form': form
-        }
-        return render(request, self.template_name, context)
-
-    def post(self, request, *args, **kwargs):
-        form = ArticleCreationForm(request.POST or None)
-        if form.is_valid():
-            new_article = form.save(commit=False)
-            title = form.cleaned_data.get('title')
-            slug = form.cleaned_data.get('slug')
-            image = form.cleaned_data.get('image')
-            synopsis = form.cleaned_data.get('synopsis')
-            category = form.cleaned_data.get('category')
-            url_embed = form.cleaned_data.get('url_embed')
-            new_article.save()
-            self.model.objects.create(title=Article.objects.get(title=new_article.name),
-                                      slug=new_article.slug,
-                                      image=new_article.image,
-                                      synopsis=new_article.synopsis,
-                                      category=new_article.category,
-                                      url_embed=new_article.url_embed
-                                      ),
-
-            return HttpResponseRedirect(reverse('categories_view'))
-        context = {
-            'form': None
-        }
-        return render(request, self.template_name, context)
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
 
 
-@login_required
-def updateProfile(request, user_id):
-    if request.method == 'POST':
-        form = EditUserProfileForm(data=request.POST, instance=request.user)
-        update = form.save(commit=False)
-        update.user = request.user
-        update.save()
-        return render(request, 'user_account.html', {'user': user_id})
-        # return HttpResponseRedirect(reverse('account_view'))
+"""
+----------------------------------------------------------------------------
+"""
 
-    else:
-        form = EditUserProfileForm(instance=request.user)
 
-    return render(request, 'edit_profile.html', {'form': form})
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'edit_profile.html'
+
+    def get_object(self, *args, **kwargs):
+        user = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return user
+
+    def get_success_url(self, *args, **kwargs):
+        user = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return reverse('account_view', kwargs={'user': user})
+
+
+"""
+----------------------------------------------------------------------------
+"""
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
+
+
+"""
+----------------------------------------------------------------------------
+"""
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryUpdateForm
+    template_name = 'edit_category.html'
+
+    def get_object(self, *args, **kwargs):
+        category = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return category
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
+
+
+"""
+----------------------------------------------------------------------------
+"""
+
+
+class ArticleUpdateView(UpdateView):
+    model = Article
+    form_class = ArticleUpdateForm
+    template_name = 'edit_article.html'
+
+    def get_object(self, *args, **kwargs):
+        article = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return article
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
+
+
+"""
+----------------------------------------------------------------------------
+"""
+
+
+class UserDeleteView(DeleteView):
+    model = User
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
+
+
+"""
+----------------------------------------------------------------------------
+"""

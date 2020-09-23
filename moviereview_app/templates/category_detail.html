@@ -12,11 +12,15 @@
 
 				<h2>
 					{% if request.user.is_superuser and request.user.is_authenticated %}
-					<a href="#">
+					<a href="{% url 'article_update_view' article.pk %}">
 						<button type="button" class="btn btn-primary btn-sm">Editar</button>
 					</a>
 					{% endif %}
-					{{ article.title }} <i class="fa fa-star fa-1x" style="color:#fed805"></i>3.5 </h2>
+					{{ article.title }} <i class="fa fa-star fa-1x" style="color:#fed805"></i>
+					{{ article.ranking|floatformat:1 }}
+					<i class="fa fa-user-plus fa-1x" style="color:gray"></i>
+					{{ article.votes }}
+				</h2>
 			</a>
 			<a href="{{ article.get_absolute_url }}">
 				<img height=" 250" width="400" src="{{ article.image.url }}" class="img-responsive">

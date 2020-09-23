@@ -10,12 +10,18 @@
 		<div class="col-md-2">
 			<img height="200" width="200" src="{{ article.image.url }}" class="img-responsive">
 			<a href="{{ article.get_absolute_url }}">
-				<h2 align="center">{{ article.title }}</h2>
+				<h2 align="center"> {{ article.title }}</h2>
 			</a>
+			<h3 align="center">
+				<i class="fa fa-star fa-2x" style="color:#fed805"></i> {{ article.ranking|floatformat:1 }} </h3>
 		</div>
 		<div class="col-md-8 col-md-offset-0 article-item">
 			<a href="{{ article.get_absolute_url }}">
-				<h2>{{ article.title }}</h2>
+				<h2> {% if request.user.is_superuser and request.user.is_authenticated %}
+					<a href="{% url 'article_update_view' article.pk %}">
+						<button type="button" class="btn btn-primary btn-sm">Editar</button>
+					</a>
+					{% endif %}{{ article.title }}</h2>
 			</a>
 			{% video article.url_embed as my_video %}
 			<!--
@@ -26,17 +32,33 @@
 			<p>{{ article.synopsis }}</p>
 			<div class="post-footer">
 				<span class="add-to-fav" article-id="{{ article.id }}">
-					<a href="#" class="btn btn-info">Agregar a favoritos</a>
+					<a href="#" class="btn btn-info" onclick="return fav_added();">Agregar a favoritos</a>
 				</span>
 			</div>
 			<br>
-			<div class="rating rating2">
-				<a href="#5" title="Give 5 stars" data-value="5"><i class="fa fa-star-o fa-2x"></i></a>
-				<a href="#4" title="Give 4 stars" data-value="4"><i class="fa fa-star-o fa-2x"></i></a>
-				<a href="#3" title="Give 3 stars" data-value="3"><i class="fa fa-star-o fa-2x"></i></a>
-				<a href="#2" title="Give 2 stars" data-value="2"><i class="fa fa-star-o fa-2x"></i></a>
-				<a href="#1" title="Give 1 star" data-value="1"><i class="fa fa-star-o fa-2x"></i></a>
+			<!--
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<div class="rating rating2" id="votes-{{ article.id }}" data-id="{{ article.id }}" aria-hidden="true">
+				<span id="votes-count-{{ article.id }}">{{ article.votes }} </span>
+				<a href="#5" title="Give 5 stars" data-value="5">☆</a>
+				<a href="#4" title="Give 4 stars" data-value="4">☆</a>
+				<a href="#3" title="Give 3 stars" data-value="3">☆</a>
+				<a href="#2" title="Give 2 stars" data-value="2">☆</a>
+				<a href="#1" title="Give 1 star" data-value="1">☆</a>
 			</div>
+			-->
+
+			<i class="fa fa-star-o fa-2x one-star" id="one-star-{{ article.id }}" data-id="{{ article.id }}"
+				aria-hidden="true"></i>
+			<i class="fa fa-star-o fa-2x two-star" id="two-star-{{ article.id }}" data-id="{{ article.id }}"
+				aria-hidden="true"></i>
+			<i class="fa fa-star-o fa-2x three-star" id="three-star-{{ article.id }}" data-id="{{ article.id }}"
+				aria-hidden="true"></i>
+			<i class="fa fa-star-o fa-2x four-star" id="four-star-{{ article.id }}" data-id="{{ article.id }}"
+				aria-hidden="true"></i>
+			<i class="fa fa-star-o fa-2x five-star" id="five-star-{{ article.id }}" data-id="{{ article.id }}"
+				aria-hidden="true"></i>
+
 
 			<h3>Comentarios (<span id="comments-count">{{ article_comments.count }}</span>)</h3>
 			<form method="POST" action="">
@@ -77,6 +99,12 @@
 <script type="text/javascript">
 	var create_comment_url = "{% url 'create_comment_view' %}";
 	var add_article_to_favourites_url = "{% url 'add_article_to_favourites_view' %}";
+	var user_reaction_url = "{% url 'user_reaction_view' %}";
+</script>
+<script type="text/javascript">
+	function fav_added() {
+		return confirm('Pelicula agregada a favoritos.');
+	}
 </script>
 
 {% endblock content %}

@@ -134,7 +134,7 @@
             "image": "Comedia/home-alone.jpg",
             "url_embed": "http://www.youtube.com/embed/owU3lMxd6jI",
             "synopsis": "Kevin McAllister es un niño de ocho años, miembro de una familia numerosa, que accidentalmente se queda abandonado en su casa cuando toda la familia se marcha a pasar las vacaciones a Francia. Kevin aprende a valerse por sí mismo e incluso a protegerse de Harry y Marv, dos bribones que se proponen asaltar todas las casas cerradas de su vecindario. En cuanto su madre lo echa en falta, regresa apresuradamente a Chicago para recuperar a su hijo",
-            "votes": 1,
+            "votes": 0,
             "time_added": "2020-5-4T09:56:11.536Z",
             "comments": [],
             "users_reactions": []
@@ -166,7 +166,7 @@
             "image": "Comedia/juno.jpg",
             "url_embed": "http://www.youtube.com/embed/pBswF2SYDtM",
             "synopsis": "Juno Macguff (Ellen Page) tiene 16 años y es, según los adultos, más inteligente de lo que le conviene. Es ingeniosa, culta, observadora y, sobre todo, sarcástica. Ese sarcasmo no es más que una coraza para ocultar sus miedos y dudas. A raíz de la relación con un compañero de clase (Michael Cera) se queda embarazada. Y, como él se desentiende del problema, Juno toma una decisión que cuenta con la aprobación de su familia: tendrá el niño y lo dará en adopción. Después habrá que encontrar unos padres adoptivos adecuados. Mark (Jason Bateman) y Vanessa (Jennifer Garner) parecen los padres ideales. Pero resulta que Mark y Juno comparten demasiadas aficiones y parecen entenderse muy bien desde el principio.",
-            "votes": 1,
+            "votes": 0,
             "time_added": "2020-3-22T10:03:32.885Z",
             "comments": [],
             "users_reactions": []
@@ -182,7 +182,7 @@
             "image": "Drama/a-clockwork-orange.jpg",
             "url_embed": "http://www.youtube.com/embed/vN-1Mup0UI0",
             "synopsis": "Gran Bretaña, en un futuro indeterminado. Alex (Malcolm McDowell) es un joven muy agresivo que tiene dos pasiones: la violencia desaforada y Beethoven. Es el jefe de la banda de los drugos, que dan rienda suelta a sus instintos más salvajes apaleando, violando y aterrorizando a la población. Cuando esa escalada de terror llega hasta el asesinato, Alex es detenido y, en prisión, se someterá voluntariamente a una innovadora experiencia de reeducación que pretende anular drásticamente cualquier atisbo de conducta antisocial.",
-            "votes": 1,
+            "votes": 0,
             "time_added": "2020-9-5T10:04:21.862Z",
             "comments": [],
             "users_reactions": []
@@ -216,6 +216,54 @@
             "synopsis": "Dom Cobb (DiCaprio) es un experto en el arte de apropiarse, durante el sueño, de los secretos del subconsciente ajeno. La extraña habilidad de Cobb le ha convertido en un hombre muy cotizado en el mundo del espionaje, pero también lo ha condenado a ser un fugitivo y, por consiguiente, a renunciar a llevar una vida normal. Su única oportunidad para cambiar de vida será hacer exactamente lo contrario de lo que ha hecho siempre: la incepción, que consiste en implantar una idea en el subconsciente en lugar de sustraerla. Sin embargo, su plan se complica debido a la intervención de alguien que parece predecir cada uno de sus movimientos, alguien a quien sólo Cobb podrá descubrir.",
             "votes": 0,
             "time_added": "2020-4-15T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 9,
+        "fields": {
+            "category": 1,
+            "title": "Deadpool",
+            "slug": "deadpool",
+            "image": "Accion/deadpool.jpg",
+            "url_embed": "https://www.youtube.com/watch?v=OuH3zDs2y3s&list=PLSn3ATAyhO5uMZJxN5hJOIFp1S_2SqoGn&index=124",
+            "synopsis": "Basado en el anti-héroe menos convencional de la Marvel, Deadpool narra el origen de un ex-operativo de la fuerzas especiales llamado Wade Wilson, reconvertido a mercenario, y que tras ser sometido a un cruel experimento adquiere poderes de curación rápida, adoptando Wade entonces el alter ego de Deadpool. Armado con sus nuevas habilidades y un oscuro y retorcido sentido del humor, Deadpool intentará dar caza al hombre que casi destruye su vida.",
+            "votes": 0,
+            "time_added": "2020-9-23T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 10,
+        "fields": {
+            "category": 1,
+            "title": "Terminator",
+            "slug": "terminator",
+            "image": "Accion/terminator.jpg",
+            "url_embed": "https://www.youtube.com/watch?v=k64P4l2Wmeg",
+            "synopsis": "Los Ángeles, año 2029. Las máquinas dominan el mundo. Los rebeldes que luchan contra ellas tienen como líder a John Connor, un hombre que nació en los años ochenta. Para acabar con la rebelión, las máquinas deciden enviar al pasado a un robot -Terminator- cuya misión será eliminar a Sarah Connor, la madre de John, e impedir así su nacimiento.",
+            "votes": 0,
+            "time_added": "2020-9-23T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 11,
+        "fields": {
+            "category": 2,
+            "title": "Spider-Man",
+            "slug": "spider-man",
+            "image": "Accion/spider-man.jpg",
+            "url_embed": "https://www.youtube.com/watch?v=TYMMOjBUPMM",
+            "synopsis": "Tras la muerte de sus padres, Peter Parker, un tímido estudiante, vive con su tía May y su tío Ben. Precisamente debido a su retraimiento no es un chico muy popular en el instituto. Un día le muerde una araña que ha sido modificada genéticamente; a la mañana siguiente, descubre estupefacto que posee la fuerza y la agilidad de ese insecto. Las aventuras del hombre araña se basan en el famoso cómic de Stan Lee y Steve Ditko.",
+            "votes": 0,
+            "time_added": "2020-9-23T21:22:08.754Z",
             "comments": [],
             "users_reactions": []
         }

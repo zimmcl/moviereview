@@ -16,7 +16,6 @@
         </script>
     </div>
 
-    {% if request.user.is_authenticated and request.user.is_superuser %}
     <div id="show_hide_user">
         <table class="table table-striped table-bordered table-sm">
             <thead class="thead-dark" align="center">
@@ -50,18 +49,24 @@
                         {% endif %}</td>
                     <td>{{ user_s.is_staff }}</td>
                     <td>
+                        <!--
                         {% if user_s.is_active %}
                         <a href="#"><button type="button" class="btn btn-info btn-sm">Desactivar</button></a>
                         {% else %}
                         <a href="#"><button type="button" class="btn btn-info btn-sm">Activar</button></a>
                         {% endif %}
+                        -->
                         <a href="{% url 'user_edit_profile' user_s.pk %}"><button type="button"
-                                class="btn btn-warning btn-sm">Editar</button></a>
-                        <a href="#" onclick="return clicked();"><button type="button"
-                                class="btn btn-danger btn-sm">Eliminar</button></a>
+                                class="btn btn-warning btn-sm" disabled>Editar</button></a>
+                    </td>
+                    <td>
+                        <form action="{% url 'user_delete_view' user.pk %}" method="POST" onclick="return u_clicked();">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm" disabled>Eliminar</button>
+                        </form>
                         <script type="text/javascript">
-                            function clicked() {
-                                return confirm('Seguro que desea eliminar el usuario?');
+                            function u_clicked() {
+                                return confirm('Seguro que desea eliminar el perfil?');
                             }
                         </script>
                     </td>
@@ -70,5 +75,4 @@
             </tbody>
         </table>
     </div>
-    {% endif %}
 </div>

@@ -27,9 +27,11 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=120)
-    image = models.ImageField(upload_to=generate_filename)
+    image = models.ImageField(
+        upload_to=generate_filename, null=True, blank=True)
     url_embed = models.URLField(max_length=100)
     synopsis = models.TextField()
+    ranking = models.FloatField(default=0)
     votes = models.PositiveIntegerField(default=0)
     comments = models.ManyToManyField('Comments', blank=True)
     time_added = models.DateTimeField(auto_now_add=True)

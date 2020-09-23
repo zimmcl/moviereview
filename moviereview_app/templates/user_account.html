@@ -13,20 +13,23 @@
 
 		<div class="col-md-4">
 
-			<h2>Información personal <a href="{% url 'user_edit_profile' user_id=user.pk %}">
-					<button type="button" class="btn btn-primary">Editar</button>
+			<h2>Información personal <a href="{% url 'user_edit_profile' pk=user.pk %}">
+					<button type="button" class="btn btn-warning">Editar</button>
 				</a>
 			</h2>
 
 			<p class="personal-info">
 				ID: <span>{{ user.pk }}</span><br>
-				Nombre: <span>{{ user.first_name }}</span><br>
-				Apellido: <span>{{ user.last_name }}</span><br>
-				Email: <span>{{ user.email }}</span><br>
+				Nombre: <span>{{ user.user.first_name }}</span><br>
+				Apellido: <span>{{ user.user.last_name }}</span><br>
+				Email: <span>{{ user.user.email }}</span><br>
 				Usuario: <span>{{ user.user.username }}</span><br>
 				Rol: <span>{{ user.user.is_superuser }}</span><br>
 				Miembro: <span>{{ user.user.is_staff }}</span><br>
-				<span><a href="{% url 'change_password_view' %}">Cambiar contraseña</a></span>
+				<a href="{% url 'change_password_view' %}">
+					<button type="button" class="btn btn-info">Cambiar contraseña</button>
+				</a>
+				<!--<span><a href="{% url 'change_password_view' %}">Cambiar contraseña</a></span>-->
 			</p>
 		</div>
 
@@ -38,39 +41,29 @@
 					<a href="{% url 'article_detail_view' category_slug=article.category.slug slug=article.slug %}">
 						{{ article.title }}
 					</a>
-					<a href=" {% url 'favorite_delete_view' id=article.id %}" onclick="return clicked();">
-						<button type="button" class="btn btn-danger btn-sm">X</button>
+
+					<a href=" {% url 'favorite_delete_view' user.pk article.id %}">
+						<button type="button" class="btn btn-danger btn-sm">
+							<span class="glyphicon glyphicon-trash"></span></button>
 					</a>
+
 				</li>
 				{% endfor %}
 			</ul>
 		</div>
 	</div>
+
+	{% if request.user.is_authenticated and request.user.is_superuser %}
+
+	<br>
+	<h2>Área administrativa</h2>
+
+	{% include "list_user.html" %}
+
+	{% include "list_category.html" %}
+
+	{% endif %}
+
+	{% endblock content %}
+
 </div>
-
-
-{% include "list_user.html" %}
-
-{% include "list_category.html" %}
-
-{% endblock content %}
-
-
-
-
-<!--
-<div class="container">
-	<div class="row" id="profile-wrapper">
-		<h2>Funciones Administrativas</h2>
-		{% if user.user.is_superuser %}
-		<button type="button" class="btn btn-primary btn-lg">Administrar Categorias</button>
-		<button type="button" class="btn btn-primary btn-lg">Crear Contenido</button>
-		<button type="button" class="btn btn-primary btn-lg">Administrar Usuarios</button>
-		{% else %}
-		<button type="button" class="btn btn-primary btn-lg" disabled>Administrar Categorias</button>
-		<button type="button" class="btn btn-primary btn-lg" disabled>Crear Contenido</button>
-		<button type="button" class="btn btn-primary btn-lg" disabled>Administrar Usuarios</button>
-		{% endif %}
-	</div>
-</div>
--->
