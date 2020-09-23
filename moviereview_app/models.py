@@ -27,8 +27,7 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=120)
-    image = models.ImageField(
-        upload_to=generate_filename, null=True, blank=True)
+    image = models.ImageField(upload_to=generate_filename)
     url_embed = models.URLField(max_length=100)
     synopsis = models.TextField()
     ranking = models.FloatField(default=0)
