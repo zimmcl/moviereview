@@ -20,8 +20,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from moviereview_app import views
 from moviereview_app.views import (CategoryListView, CategoryDetailView, ArticleDetailView, CreateCommentView,
-                                   DisplayArticlesByCategory, UserReactionView, RegisterUserView, LoginUserView, UserAccountView, AddArticlesToFavoutitesView,
-                                   SearchView, RemoveArticleFromFavoriteView, CategoryCreateView, ArticleCreateView)
+                                   DisplayArticlesByCategory, UserReactionView, RegisterUserView, LoginUserView, UserAccountView,
+                                   AddArticlesToFavoutitesView, SearchView, ArticleFavoriteDeleteView, CategoryCreateView,
+                                   ArticleCreateView, UserUpdateView, CategoryDeleteView, CategoryUpdateView, ArticleUpdateView,
+                                   UserDeleteView)
 
 
 urlpatterns = [
@@ -43,7 +45,7 @@ urlpatterns = [
     re_path(r'^add_article_to_favourites/$', AddArticlesToFavoutitesView.as_view(),
             name='add_article_to_favourites_view'),
 
-    re_path(r'^send_like_dislike/$', UserReactionView.as_view(),
+    re_path(r'^send_votes/$', UserReactionView.as_view(),
             name='user_reaction_view'),
 
     re_path(r'^display_articles_by_category/$', DisplayArticlesByCategory.as_view(),
@@ -63,18 +65,30 @@ urlpatterns = [
     re_path(r'^user/(?P<user>[-\w]+)/$',
             UserAccountView.as_view(), name='account_view'),
 
-    # Doesn't work. Needs to be Fixed.
-    re_path(r'^favorite_delete/(?P<id>[-\w]+)/$',
-            RemoveArticleFromFavoriteView.as_view(), name='favorite_delete_view'),
+    # Works, but needs to be Fixed.
+    re_path(r'^favorite_delete/(?P<user_id>[-\w]+)/(?P<article_id>[-\w]+)/$',
+            ArticleFavoriteDeleteView, name='favorite_delete_view'),
 
-    # Requires refactoring. Use of classes.
-    re_path(r'^update_profile/(?P<user_id>[-\w]+)/$',
-            views.updateProfile, name='user_edit_profile'),
+    re_path(r'^update_profile/(?P<pk>[-\w]+)/$',
+            UserUpdateView.as_view(), name='user_edit_profile'),
 
     re_path(r'^add_category/$', CategoryCreateView.as_view(),
             name='category_create_view'),
 
+    # Doesn't work. Needs to be Fixed.
     re_path(r'^add_article/$', ArticleCreateView.as_view(),
             name='article_create_view'),
+
+    re_path(r'^delete_category/(?P<pk>[-\w]+)/$', CategoryDeleteView.as_view(),
+            name='category_delete_view'),
+
+    re_path(r'^update_category/(?P<pk>[-\w]+)/$', CategoryUpdateView.as_view(),
+            name='category_update_view'),
+
+    re_path(r'^update_article/(?P<pk>[-\w]+)/$', ArticleUpdateView.as_view(),
+            name='article_update_view'),
+
+    re_path(r'^delete_user/(?P<pk>[-\w]+)/$', UserDeleteView.as_view(),
+            name='user_delete_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
