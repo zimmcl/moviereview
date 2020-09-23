@@ -56,13 +56,14 @@
                         <a href="#"><button type="button" class="btn btn-info btn-sm">Activar</button></a>
                         {% endif %}
                         -->
-                        <a href="{% url 'user_edit_profile' user_s.pk %}"><button type="button"
-                                class="btn btn-warning btn-sm" disabled>Editar</button></a>
+                        <a href="{% url 'user_edit_profile' user.pk user_s.pk %}"><button type="button"
+                                class="btn btn-warning btn-sm">Editar</button></a>
                     </td>
                     <td>
-                        <form action="{% url 'user_delete_view' user.pk %}" method="POST" onclick="return u_clicked();">
+                        <form action="{% url 'user_delete_view' user_s.pk %}" method="POST"
+                            onclick="return u_clicked();">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm" disabled>Eliminar</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
                         <script type="text/javascript">
                             function u_clicked() {

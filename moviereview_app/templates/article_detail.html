@@ -17,11 +17,21 @@
 		</div>
 		<div class="col-md-8 col-md-offset-0 article-item">
 			<a href="{{ article.get_absolute_url }}">
-				<h2> {% if request.user.is_superuser and request.user.is_authenticated %}
+				<form action="{% url 'article_delete_view' article.pk %}" align="right" method="POST"
+					onclick="return a_clicked();">
+					{% csrf_token %}
+					{% if request.user.is_superuser and request.user.is_authenticated %}
+					<button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+					{% endif %}
+				</form>
+				<h2>
+					{% if request.user.is_superuser and request.user.is_authenticated %}
 					<a href="{% url 'article_update_view' article.pk %}">
 						<button type="button" class="btn btn-primary btn-sm">Editar</button>
 					</a>
-					{% endif %}{{ article.title }}</h2>
+					{% endif %}
+					{{ article.title }}
+				</h2>
 			</a>
 			{% video article.url_embed as my_video %}
 			<!--
@@ -30,6 +40,8 @@
 			{% video my_video '100% x 400' %}
 			{% endvideo %}
 			<p>{{ article.synopsis }}</p>
+
+			{% if request.user.is_authenticated %}
 			<div class="post-footer">
 				<span class="add-to-fav" article-id="{{ article.id }}">
 					<a href="#" class="btn btn-info" onclick="return fav_added();">Agregar a favoritos</a>
@@ -58,9 +70,11 @@
 				aria-hidden="true"></i>
 			<i class="fa fa-star-o fa-2x five-star" id="five-star-{{ article.id }}" data-id="{{ article.id }}"
 				aria-hidden="true"></i>
+			{% endif %}
 
 
 			<h3>Comentarios (<span id="comments-count">{{ article_comments.count }}</span>)</h3>
+			{% if request.user.is_authenticated %}
 			<form method="POST" action="">
 				{% csrf_token %}
 				{{ form|crispy }}
@@ -70,6 +84,7 @@
 					data-target="#myModal">
 				</button>
 			</form>
+			{% endif %}
 			<div class="comments">
 				{% for comment in article_comments %}
 				<div class="comment-item">
@@ -104,6 +119,11 @@
 <script type="text/javascript">
 	function fav_added() {
 		return confirm('Pelicula agregada a favoritos.');
+	}
+</script>
+<script type="text/javascript">
+	function a_clicked() {
+		return confirm('Seguro que desea eliminar el articulo?');
 	}
 </script>
 

@@ -328,11 +328,11 @@ class UserUpdateView(UpdateView):
     template_name = 'edit_profile.html'
 
     def get_object(self, *args, **kwargs):
-        user = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        user = get_object_or_404(self.model, pk=self.kwargs['edit_user'])
         return user
 
     def get_success_url(self, *args, **kwargs):
-        user = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        user = get_object_or_404(self.model, pk=self.kwargs['current_user'])
         return reverse('account_view', kwargs={'user': user})
 
 
@@ -391,6 +391,18 @@ class ArticleUpdateView(UpdateView):
 
 class UserDeleteView(DeleteView):
     model = User
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse('categories_view')
+
+
+"""
+----------------------------------------------------------------------------
+"""
+
+
+class ArticleDeleteView(DeleteView):
+    model = Article
 
     def get_success_url(self, *args, **kwargs):
         return reverse('categories_view')

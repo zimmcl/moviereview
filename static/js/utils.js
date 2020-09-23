@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+	function Reload() {
+		{
+			setTimeout(function () {
+				location.reload(true);
+			}, 500);
+
+		}
+	}
+
+
 	function getCrsfCookie(name) {
 		var cookieValue = null;
 		if (document.cookie && document.cookie !== '') {
@@ -93,6 +103,7 @@ $(document).ready(function () {
 			data: data_to_send,
 			success: function (data) {
 				$('#star-count-' + article_id).html(data.total_stars);
+				Reload();
 			}
 		})
 	});
@@ -111,6 +122,7 @@ $(document).ready(function () {
 			data: data_to_send,
 			success: function (data) {
 				$('#star-count-' + article_id).html(data.total_stars);
+				Reload();
 			}
 		})
 	});
@@ -129,6 +141,7 @@ $(document).ready(function () {
 			data: data_to_send,
 			success: function (data) {
 				$('#star-count-' + article_id).html(data.total_stars);
+				Reload();
 			}
 		})
 	});
@@ -147,6 +160,7 @@ $(document).ready(function () {
 			data: data_to_send,
 			success: function (data) {
 				$('#star-count-' + article_id).html(data.total_stars);
+				Reload();
 			}
 		})
 	});
@@ -165,6 +179,7 @@ $(document).ready(function () {
 			data: data_to_send,
 			success: function (data) {
 				$('#star-count-' + article_id).html(data.total_stars);
+				Reload();
 			}
 		})
 	});

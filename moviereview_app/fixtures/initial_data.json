@@ -267,5 +267,37 @@
             "comments": [],
             "users_reactions": []
         }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 12,
+        "fields": {
+            "category": 4,
+            "title": "Forrest Gump",
+            "slug": "forrest-gump",
+            "image": "Drama/forrest-gump.jpg",
+            "url_embed": "https://www.youtube.com/watch?v=bLvqoHBptjg",
+            "synopsis": "Forrest Gump (Tom Hanks) sufre desde pequeño un cierto retraso mental. A pesar de todo, gracias a su tenacidad y a su buen corazón será protagonista de acontecimientos cruciales de su país durante varias décadas. Mientras pasan por su vida multitud de cosas en su mente siempre está presente la bella Jenny (Robin Wright), su gran amor desde la infancia, que junto a su madre será la persona más importante en su vida.",
+            "votes": 0,
+            "time_added": "2020-9-23T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
+    },
+    {
+        "model": "moviereview_app.article",
+        "pk": 13,
+        "fields": {
+            "category": 5,
+            "title": "Animales fantasticos",
+            "slug": "animales-fantasticos",
+            "image": "Fantasia/animales-fantasticos.jpg",
+            "url_embed": "https://www.youtube.com/watch?v=Vso5o11LuGU",
+            "synopsis": "Año 1926. Newt Scamander acaba de completar un viaje por todo el mundo para encontrar y documentar una extraordinaria selección de criaturas mágicas. Llegando a Nueva York para hacer una breve parada en su camino, donde podría haber llegado y salido sin incidentes…pero no para un Muggle llamado Jacob, un caso perdido de magia, y la fuga de algunas criaturas fantásticas de Newt, que podrían causar problemas el mundo mágico y en el mundo Muggle.",
+            "votes": 0,
+            "time_added": "2020-9-23T21:22:08.754Z",
+            "comments": [],
+            "users_reactions": []
+        }
     }
 ]

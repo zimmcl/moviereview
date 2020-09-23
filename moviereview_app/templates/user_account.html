@@ -13,7 +13,7 @@
 
 		<div class="col-md-4">
 
-			<h2>Información personal <a href="{% url 'user_edit_profile' pk=user.pk %}">
+			<h2>Información personal <a href="{% url 'user_edit_profile' user.pk user.pk %}">
 					<button type="button" class="btn btn-warning">Editar</button>
 				</a>
 			</h2>

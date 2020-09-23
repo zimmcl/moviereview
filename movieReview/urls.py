@@ -23,7 +23,7 @@ from moviereview_app.views import (CategoryListView, CategoryDetailView, Article
                                    DisplayArticlesByCategory, UserReactionView, RegisterUserView, LoginUserView, UserAccountView,
                                    AddArticlesToFavoutitesView, SearchView, ArticleFavoriteDeleteView, CategoryCreateView,
                                    ArticleCreateView, UserUpdateView, CategoryDeleteView, CategoryUpdateView, ArticleUpdateView,
-                                   UserDeleteView)
+                                   UserDeleteView, ArticleDeleteView)
 
 
 urlpatterns = [
@@ -69,13 +69,13 @@ urlpatterns = [
     re_path(r'^favorite_delete/(?P<user_id>[-\w]+)/(?P<article_id>[-\w]+)/$',
             ArticleFavoriteDeleteView, name='favorite_delete_view'),
 
-    re_path(r'^update_profile/(?P<pk>[-\w]+)/$',
+    re_path(r'^update_profile/(?P<current_user>[-\w]+)/(?P<edit_user>[-\w]+)/$',
             UserUpdateView.as_view(), name='user_edit_profile'),
 
     re_path(r'^add_category/$', CategoryCreateView.as_view(),
             name='category_create_view'),
 
-    # Doesn't work. Needs to be Fixed.
+    # Works, but needs to be Fixed.
     re_path(r'^add_article/$', ArticleCreateView.as_view(),
             name='article_create_view'),
 
@@ -90,5 +90,8 @@ urlpatterns = [
 
     re_path(r'^delete_user/(?P<pk>[-\w]+)/$', UserDeleteView.as_view(),
             name='user_delete_view'),
+
+    re_path(r'^delete_article/(?P<pk>[-\w]+)/$', ArticleDeleteView.as_view(),
+            name='article_delete_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
