@@ -235,9 +235,9 @@ textarea {
 
 /* Twitter */
 
-.fa-twitter {
-  background: #55ACEE;
-  color: white;
+.fa-user-secret {
+  background: #141414;
+  color: rgb(224, 222, 222);
 }
 
 .fa-google {
