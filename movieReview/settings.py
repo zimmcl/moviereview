@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'x=4l#o-4c6w%_-k00lz78vjmhk28-mtqx1hcm5&w145wfn8%z-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['moviereviewfp.herokuapp.com']
 
@@ -61,7 +61,13 @@ ROOT_URLCONF = 'movieReview.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['moviereview_app/templates'],
+        'DIRS': ['moviereview_app/templates',
+                 'moviereview_app/templates/user',
+                 'moviereview_app/templates/article',
+                 'moviereview_app/templates/category',
+                 'moviereview_app/templates/main',
+                 'moviereview_app/templates/other'
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

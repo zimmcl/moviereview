@@ -13,17 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from moviereview_app.views.actions_view import (SearchView, AddArticlesToFavoutitesView,
+                                                CreateCommentView, UserReactionView, ArticleFavoriteDeleteView)
+from moviereview_app.views.category_view import (CategoryListView, CategoryDetailView, CategoryCreateView,
+                                                 CategoryDeleteView, CategoryUpdateView)
+from moviereview_app.views.article_view import (ArticleDetailView, DisplayArticlesByCategory,
+                                                ArticleCreateView, ArticleUpdateView, ArticleDeleteView)
+from moviereview_app.views.user_view import (RegisterUserView, LoginUserView, UserAccountView,
+                                             UserUpdateView, UserDeleteView)
 from django.contrib import admin
 from django.urls import path, re_path, reverse_lazy
 from django.contrib.auth.views import LogoutView, PasswordChangeView
 from django.conf.urls.static import static
 from django.conf import settings
 from moviereview_app import views
-from moviereview_app.views import (CategoryListView, CategoryDetailView, ArticleDetailView, CreateCommentView,
-                                   DisplayArticlesByCategory, UserReactionView, RegisterUserView, LoginUserView, UserAccountView,
-                                   AddArticlesToFavoutitesView, SearchView, ArticleFavoriteDeleteView, CategoryCreateView,
-                                   ArticleCreateView, UserUpdateView, CategoryDeleteView, CategoryUpdateView, ArticleUpdateView,
-                                   UserDeleteView, ArticleDeleteView)
 
 
 urlpatterns = [
